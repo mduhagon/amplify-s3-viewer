@@ -19,9 +19,16 @@ function App() {
     client.models.Todo.create({ content: window.prompt("Todo content") });
   }
 
+  function scanS3() {
+    console.log("SCAN!");
+  }
+
   return (
     <main>
-      <h1>My todos</h1>
+      <h1>Foton!</h1>
+      <button onClick={scanS3}>Scan Source Folders</button>
+
+      <hr></hr>
       <button onClick={createTodo}>+ new</button>
       <ul>
         {todos.map((todo) => (
