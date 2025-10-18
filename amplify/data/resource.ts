@@ -12,6 +12,34 @@ const schema = a.schema({
       content: a.string(),
     })
     .authorization((allow) => [allow.publicApiKey()]),
+  Folder: a
+    .model({
+      folderId: a.string(),
+      bucket: a.string(),
+      folderName: a.string(),
+      referenceDate: a.date(),
+      year: a.integer(),
+      month: a.integer(),
+      author: a.string(),
+      tags: a.string().array(),
+      photos: a.hasMany("Photo", "folderId"),
+    })
+    .authorization((allow) => [allow.publicApiKey()]),
+  Photo: a
+    .model({
+      photoId: a.string(),
+      folderId: a.string(),
+      fileName: a.string(),
+      fullPath: a.string(),
+      extension: a.string(),
+      referenceDate: a.date(),
+      year: a.integer(),
+      month: a.integer(),
+      author: a.string(),
+      tags: a.string().array(),
+      folder: a.belongsTo("Folder", "folderId"),
+    })
+    .authorization((allow) => [allow.publicApiKey()]),
 });
 
 export type Schema = ClientSchema<typeof schema>;
